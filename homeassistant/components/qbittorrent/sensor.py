@@ -27,8 +27,8 @@ DEFAULT_NAME = "qBittorrent"
 
 SENSOR_TYPES = {
     SENSOR_TYPE_CURRENT_STATUS: ["Status", None],
-    SENSOR_TYPE_DOWNLOAD_SPEED: ["Down Speed", "kB/s"],
-    SENSOR_TYPE_UPLOAD_SPEED: ["Up Speed", "kB/s"],
+    SENSOR_TYPE_DOWNLOAD_SPEED: ["Down Speed", "Mbit/s"],
+    SENSOR_TYPE_UPLOAD_SPEED: ["Up Speed", "Mbit/s"],
 }
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
@@ -67,8 +67,8 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
 def format_speed(speed):
     """Return a bytes/s measurement as a human readable string."""
-    kb_spd = float(speed) / 1024
-    return round(kb_spd, 2 if kb_spd < 0.1 else 1)
+    mbit_spd = 8*float(speed) / 1048576
+    return round(mbit_spd, 2 if mbit_spd < 0.1 else 1)
 
 
 class QBittorrentSensor(Entity):
